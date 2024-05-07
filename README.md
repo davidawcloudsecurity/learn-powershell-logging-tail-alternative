@@ -89,5 +89,16 @@ function Monitor-WinEventLogs {
 
 # Example usage: Monitor the System event log with a polling interval of 5 seconds
 Monitor-WinEventLogs -logName "Security" -pollingIntervalSeconds 5
-
 ```
+```ruby
+# Retrieve recent error events from the System event log
+$errorEvents = Get-WinEvent -LogName System -MaxEvents 50 | Where-Object { $_.Level -eq 2 }  # Level 2 corresponds to Error events
+
+# Filter error events related to network shares and file access
+$relevantErrorEvents = $errorEvents | Where-Object { $_.ProviderName -match 'Netlogon|Security-Kerberos|SMBClient|Microsoft-Windows-Security-Auditing' }
+
+# Display relevant error events
+$relevantErrorEvents
+```
+This script retrieves the most recent 50 error events from the "System" event log and filters out events related to network shares and file access by matching the provider name with common sources of such events. It then displays the relevant error events that might provide insights into the issue you encountered with net use.
+
