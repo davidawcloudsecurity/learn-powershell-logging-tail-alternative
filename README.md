@@ -41,7 +41,7 @@ Replace "Security" with the name of the event log you want to monitor. If you're
 
 This script keeps track of the last displayed message and the time it was displayed. It compares the current message with the last one and only displays it if it's different or if more than 5 seconds have passed since the last display. This helps in avoiding duplicate messages within a short time frame.
 ```ruby
-# Function to continuously monitor Windows Event Logs
+# Function to continuously monitor Windows Event Logs if there is a change in the last 5s
 function Monitor-WinEventLogs {
     param (
         [string]$logName = "System",  # Specify the name of the event log (default is System)
